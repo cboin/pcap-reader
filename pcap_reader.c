@@ -26,6 +26,11 @@ int main(int argc, char **argv)
   return EXIT_SUCCESS;
 }
 
+/**
+ * is_pcap_file - Getting file extension.
+ * @param filename name of file.
+ * @return a integer less than, equals to, or greater than zero.
+ */
 int is_pcap_file(const char *filename)
 {
 
