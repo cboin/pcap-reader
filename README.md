@@ -4,10 +4,19 @@ Reading pcap files
 ## Description
 Read a pcap file and displays the information in this file. This can be useful for testing and debugging your IDS.
 
-## Read a single pcap
+## Usage
+
+### Read a single pcap
 ```{r, engine='bash', single_pcap}
 $ pcap_reader --single-pcap=foo.pcap
 ```
+## Complie
+
+### Unix
+```{r, engine='bash', install_make}
+$ make
+```
+
 ## Licensing
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
