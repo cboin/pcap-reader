@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#include "pcap_reader.c"
+
 int main(int argc, char **argv)
 {
   if (argc != 2) {
