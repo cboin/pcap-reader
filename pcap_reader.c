@@ -14,8 +14,9 @@ int main(int argc, char **argv)
     exit(EXIT_FAILURE);
   }
 
+  /* Get a file name */
   if (!is_pcap_file(argv[1])) {
-    /* TODO */
+    char *file = argv[1];
   } else {
     fprintf(stderr, "%s is not a pcap file\n", argv[1]);
     return EXIT_FAILURE;
