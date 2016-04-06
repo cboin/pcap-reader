@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <string.h>
+#include <pcap.h>
 #include <unistd.h>
 #include <stdlib.h>
 
