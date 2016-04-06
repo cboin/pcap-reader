@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "pcap_reader.c"
+int is_pcap_file(const char *);
 
 int main(int argc, char **argv)
 {
@@ -13,6 +13,27 @@ int main(int argc, char **argv)
     fprintf(stderr, "usage: %s <pcap file>\n", argv[0]);
     exit(EXIT_FAILURE);
   }
+
+  if (!is_pcap_file(argv[1])) {
+    /* TODO */
+  } else {
+    fprintf(stderr, "%s is not a pcap file\n", argv[1]);
+    return EXIT_FAILURE;
+  }
+  
   
   return EXIT_SUCCESS;
+}
+
+int is_pcap_file(const char *filename)
+{
+
+  const char *dot = strchr(filename, '.');
+
+  if (dot == NULL || dot == filename) {
+    fprintf(stderr, "%s have no extension\n", filename);
+    exit(EXIT_FAILURE);
+  }
+  
+  return strncmp("pcap", (dot + 1), 4);
 }
