@@ -36,6 +36,11 @@ int main(int argc, char **argv)
     return EXIT_FAILURE;
   }
 
+  struct pcap_pkthdr *header;
+  const unsigned char *data;
+
+  
+
   return EXIT_SUCCESS;
 }
 
