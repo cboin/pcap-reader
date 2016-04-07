@@ -69,6 +69,11 @@ int main(int argc, char **argv)
     
   }
 
+  if (fclose(fd) != 0) {
+    fprintf(stderr, "Can't close the file descriptor.\n");
+    return EXIT_FAILURE;
+  }
+
   return EXIT_SUCCESS;
 }
 
