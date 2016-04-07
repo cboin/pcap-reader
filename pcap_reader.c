@@ -38,7 +38,13 @@ int main(int argc, char **argv)
 
   struct pcap_pkthdr *header;
   const unsigned char *data;
-
+  unsigned int packet_index = 0;
+  
+  int value;
+  while ((value = pcap_next_ex(pcap, &header, &data)) >= 0) {
+    /* Show the packet number */
+    printf("Packet # %d\n", ++packet_index);
+  }
   
 
   return EXIT_SUCCESS;
