@@ -52,6 +52,21 @@ int main(int argc, char **argv)
       printf("\033[34;01m*WARNING*\033[00m\n Capture size different then packet size: %u bytes\n", header->len);
     }
 
+    printf("Timestamp %ld:%ld seconds\n", header->ts.tv_sec, header->ts.tv_usec);
+
+    int i;
+    for (i = 0; i < header->caplen; ++i) {
+      /* Start printing on the next after every 16 octects */
+      if ((i % 16) == 0) {
+	printf("\n");
+      }
+
+      printf("%.2x ", data[i]);
+      
+    }
+
+    printf("\n\n");   
+    
   }
 
   return EXIT_SUCCESS;
