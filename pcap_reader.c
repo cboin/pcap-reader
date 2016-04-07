@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <pcap.h>
+#include <pcap/pcap.h>
 #include <unistd.h>
 #include <stdlib.h>
 
 int is_pcap_file(const char *);
+FILE *open_and_check(const char *);
 
 int main(int argc, char **argv)
 {
@@ -15,14 +17,25 @@ int main(int argc, char **argv)
   }
 
   /* Get a file name */
+  char *file;
   if (!is_pcap_file(argv[1])) {
-    char *file = argv[1];
+    file = argv[1];
   } else {
     fprintf(stderr, "%s is not a pcap file\n", argv[1]);
     return EXIT_FAILURE;
   }
-  
-  
+
+  /* Create an char array to hold error. */
+  char errbuff[PCAP_ERRBUF_SIZE];
+
+  FILE *fd = open_and_check(file);
+  pcap_t *pcap;
+
+  if ((pcap = pcap_fopen_offline(fd, errbuff)) == NULL) {
+    fprintf(stderr, "%s\n", errbuff);
+    return EXIT_FAILURE;
+  }
+
   return EXIT_SUCCESS;
 }
 
@@ -42,4 +55,21 @@ int is_pcap_file(const char *filename)
   }
   
   return strncmp("pcap", (dot + 1), 4);
+}
+
+/**
+ * open_and_check - open safely a file.
+ * @param path to file.
+ * @return Upon successful completion return a FILE pointer.
+ */
+FILE *open_and_check(const char *path)
+{
+  FILE *fildes;
+
+  if ((fildes = fopen(path, "r")) == NULL) {
+    fprintf(stderr, "Can't open %s for reading\n", path);
+    exit(EXIT_FAILURE);
+  }
+
+  return fildes;
 }
