@@ -1,5 +1,5 @@
 CC=clang
-CFLAGS=-g -Wall -Werror -pedantic -lpcap
+CFLAGS=-g -pg -Wall -Werror -pedantic -lpcap
 DEPS = *.h
 OBJ = *.c 
 
