@@ -42,10 +42,17 @@ int main(int argc, char **argv)
   
   int value;
   while ((value = pcap_next_ex(pcap, &header, &data)) >= 0) {
-    /* Show the packet number */
-    printf("Packet # %d\n", ++packet_index);
+    
+    printf("Packet #%d\n", ++packet_index);
+
+    printf("Packet size: %u bytes\n", header->len);
+
+    /* Show a warning if the length captured is different. */
+    if (header->len != header->caplen) {
+      printf("\033[34;01m*WARNING*\033[00m\n Capture size different then packet size: %u bytes\n", header->len);
+    }
+
   }
-  
 
   return EXIT_SUCCESS;
 }
