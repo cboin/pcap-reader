@@ -1,3 +1,8 @@
+#define APP_NAME "pcap_reader"
+#define APP_DESC "How to read pcap file"
+#define APP_COPYRIGHT "Copyright (c) 2016 Boin Clément"
+#define APP_DISCLAIMER	"THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM."
+
 #include <stdio.h>
 #include <string.h>
 #include <pcap.h>
