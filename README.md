@@ -1,5 +1,5 @@
 # pcap-reader
-Reading pcap files
+Reading pcap files, This project was inspired by the [manual page snort](http://manual-snort-org.s3-website-us-east-1.amazonaws.com/node8.html).
 
 ## Description
 Read a pcap file and displays the information in this file. This can be useful for testing and debugging your IDS.
