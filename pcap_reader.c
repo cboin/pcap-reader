@@ -9,21 +9,34 @@
 #include <pcap/pcap.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <getopt.h>
 
 int is_pcap_file(const char *);
 FILE *open_and_check(const char *);
 
 int main(int argc, char **argv)
 {
-  if (argc != 2) {
+  if (argc != 2)
+  {
     fprintf(stderr, "Incorrect number of parameter\n");
     fprintf(stderr, "usage: %s <pcap file>\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 
+  static struct option long_options[] =
+  {
+      {"pcap-single", required_argument, 0, 'r'},
+      {"pcap-file", required_argument, 0, 'f'},
+      {"pcap-list", required_argument, 0, 'l'},
+      {"pcap-dir", required_argument, 0, 'd'},
+      {"pcap-filter", required_argument, 0, 'e'},
+      {"pcap-show", no_argument, 0, 's'},
+      {0, 0, 0, 0}
+  };
   /* Get a file name */
   char *file;
-  if (!is_pcap_file(argv[1])) {
+  if (!is_pcap_file(argv[1]))
+  {
     file = argv[1];
   } else {
     fprintf(stderr, "%s is not a pcap file\n", argv[1]);
@@ -36,7 +49,8 @@ int main(int argc, char **argv)
   FILE *fd = open_and_check(file);
   pcap_t *pcap;
 
-  if ((pcap = pcap_fopen_offline(fd, errbuff)) == NULL) {
+  if ((pcap = pcap_fopen_offline(fd, errbuff)) == NULL)
+  {
     fprintf(stderr, "%s\n", errbuff);
     return EXIT_FAILURE;
   }
@@ -46,7 +60,8 @@ int main(int argc, char **argv)
   unsigned int packet_index = 0;
   
   int value;
-  while ((value = pcap_next_ex(pcap, &header, &data)) >= 0) {
+  while ((value = pcap_next_ex(pcap, &header, &data)) >= 0)
+  {
     
     printf("Packet #%d\n", ++packet_index);
 
@@ -55,14 +70,16 @@ int main(int argc, char **argv)
     /* Show a warning if the length captured is different. */
     if (header->len != header->caplen) {
       printf("\033[34;01m*WARNING*\033[00m\n Capture size different then packet size: %u bytes\n", header->len);
-    }
+  }
 
     printf("Timestamp %ld:%ld seconds\n", header->ts.tv_sec, header->ts.tv_usec);
 
     int i;
-    for (i = 0; i < header->caplen; ++i) {
+    for (i = 0; i < header->caplen; ++i)
+    {
       /* Start printing on the next after every 16 octects */
-      if ((i % 16) == 0) {
+      if ((i % 16) == 0)
+      {
 	printf("\n");
       }
 
@@ -74,7 +91,8 @@ int main(int argc, char **argv)
     
   }
 
-  if (fclose(fd) != 0) {
+  if (fclose(fd) != 0)
+  {
     fprintf(stderr, "Can't close the file descriptor.\n");
     return EXIT_FAILURE;
   }
@@ -92,7 +110,8 @@ int is_pcap_file(const char *filename)
 
   const char *dot = strchr(filename, '.');
 
-  if (dot == NULL || dot == filename) {
+  if (dot == NULL || dot == filename)
+  {
     fprintf(stderr, "%s have no extension\n", filename);
     exit(EXIT_FAILURE);
   }
@@ -109,7 +128,8 @@ FILE *open_and_check(const char *path)
 {
   FILE *fildes;
 
-  if ((fildes = fopen(path, "r")) == NULL) {
+  if ((fildes = fopen(path, "r")) == NULL)
+  {
     fprintf(stderr, "Can't open %s for reading\n", path);
     exit(EXIT_FAILURE);
   }
