@@ -21,10 +21,6 @@ $ make
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Documentation
-
-TODO
-
 ## Contributing
 
 - If you want to actively participate in the development of pcap_reader, please mail me at `clem.boin[at]gmail[dot]com`.
